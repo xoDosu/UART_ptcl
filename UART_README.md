@@ -42,9 +42,11 @@ If they differ, the message got corrupted, so the receiver throws it away. At 10
 
 
 
+`receive_byte` takes in the new byte **and a pointer to an output buffer** that the caller owns. It returns 1 only when a valid message has just been completed, and copies it into that buffer. Reasons:
 
-
-
+- No shared global, so no clash when several FreeRTOS tasks run.
+- It’s easy to test: you feed it bytes and read the output buffer.
+- It doesn’t know about the hardware, so the same code runs on your laptop test and the ESP32.
 
 
 
